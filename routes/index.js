@@ -1,4 +1,5 @@
 var xml = require('xml');
+var twilio = require('twilio');
 module.exports = function (app) {
     app.get('/', index);
     app.get('/rec', rec);
@@ -6,18 +7,15 @@ module.exports = function (app) {
 
 var index = function (req, res) {
     res.header('Content-Type','text/xml');
-    a = xml({
-    	Response: [{
-    		Say: [{ _attr: { voice: 'alice'}}, "This is a test message"]
-    	}]
-    })
-    console.log(a);
-    res.send(a);
+    var resp = new twilio.TwimlResponse();
+    resp.say('This is a test twilio message.');
+    console.log(resp.toString());
+    res.send(resp.toString());
 };
 
 var rec = function (req, res) {
     //require the Twilio module and create a REST client
-var client = require('twilio')('AC7ffda848c8d91d2f5bd54c2bf65eed21', '1b48a4376221c9a8419dd640d88f4030');
+var client = twilio('AC7ffda848c8d91d2f5bd54c2bf65eed21', '1b48a4376221c9a8419dd640d88f4030');
 
 //Send an SMS text message
 client.sendMessage({
