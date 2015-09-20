@@ -41,5 +41,4 @@ client.sendMessage({
 });
 
     res.render('index', { title: 'Node Boilerplate' });
->>>>>>> Stashed changes
 };
